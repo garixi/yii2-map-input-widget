@@ -1,6 +1,6 @@
 <?php
 
-namespace garixi\yii2\widgets
+namespace garixi\yii2\widgets;
 
 use Yii;
 
