@@ -12,7 +12,7 @@ echo '<input id="addresscompletion" class="form-control input-md" placeholder="A
 echo Html::beginTag(
     'div',
     [
-        'class' => 'kolyunya-map-input-widget',
+        'class' => 'garixi-map-input-widget',
         'style' => "width: $width; height: $height;",
         'id' => $id,
         'data' =>
@@ -33,7 +33,7 @@ echo Html::beginTag(
         $model,
         $attribute,
         [
-            'class' => 'kolyunya-map-input-widget-input',
+            'class' => 'garixi-map-input-widget-input',
         ]
     );
 
@@ -42,7 +42,7 @@ echo Html::beginTag(
         'div',
         '',
         [
-            'class' => 'kolyunya-map-input-widget-canvas',
+            'class' => 'garixi-map-input-widget-canvas',
             'style' => "width: 100%; height: 100%",
         ]
     );

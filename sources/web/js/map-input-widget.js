@@ -1,7 +1,7 @@
 function MapInputWidgetManager()
 {
 
-    const widgetSelector = '.kolyunya-map-input-widget';
+    const widgetSelector = '.garixi-map-input-widget';
 
     var self = this;
 
@@ -52,9 +52,9 @@ function MapInputWidgetManager()
 function MapInputWidget ( widget )
 {
 
-    const inputSelector = 'input.kolyunya-map-input-widget-input';
+    const inputSelector = 'input.garixi-map-input-widget-input';
 
-    const canvasSelector = 'div.kolyunya-map-input-widget-canvas';
+    const canvasSelector = 'div.garixi-map-input-widget-canvas';
 
     var self = this;
 
