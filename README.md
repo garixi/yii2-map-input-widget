@@ -8,11 +8,6 @@ This fork adds a textfield for address lookup
 ##Description
 A [Yii2 input widget](http://www.yiiframework.com/doc-2.0/yii-widgets-inputwidget.html) which provides a user-friendly interface for selecting geographical coordinates via [Google maps](https://www.google.com/maps/preview). Allows users to select geographical coordinates by clicking on an interative Google map embedded into you web-page.
 
-The widget is [composer](https://getcomposer.org/)-enabled. You can aquire the latest available version from the [packagist repository](https://packagist.org/packages/garixi/yii2-map-input-widget).
-
-##Demo
-A simple widget demo is available [here](http://garixi.github.io/yii2-map-input-widget/). You may inspect the hidden input value via some web-developer tool (e.g. [Firebug](https://addons.mozilla.org/ru/firefox/addon/firebug/)) to see how geographical coordinates are represented inside the widget.
-
 ##Usage examples
 
 ###Minimal example
