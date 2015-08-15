@@ -1,13 +1,13 @@
 <?php
 
-namespace kolyunya\yii2\assets;
+namespace garixi\yii2\assets;
 
 class MapInputAsset extends \yii\web\AssetBundle
 {
 
     public static $key;
 
-    public $sourcePath = '@kolyunya/yii2-map-input-widget/sources/web';
+    public $sourcePath = '@garixi/yii2-map-input-widget/sources/web';
 
     public $depends =
     [
@@ -22,8 +22,11 @@ class MapInputAsset extends \yii\web\AssetBundle
     public function __construct($config = [])
     {
         $this->js[] = $this->getGoogleMapScriptUrl();
+        $this->js[] = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js";
+
         if (YII_DEBUG) {
             $this->js[] = 'js/map-input-widget.js';
+
         } else {
             $this->js[] = 'js/map-input-widget.min.js';
         }
@@ -32,7 +35,8 @@ class MapInputAsset extends \yii\web\AssetBundle
 
     private function getGoogleMapScriptUrl()
     {
-        $scriptUrl  =  "//maps.googleapis.com/maps/api/js?";
+        $protocol = \Yii::$app->request->isSecureConnection ? "https" : "http";
+        $scriptUrl  =  $protocol . "://maps.googleapis.com/maps/api/js?";
         $scriptUrl .= http_build_query([
             'key' => self::$key,
             'sensor' => 'false',

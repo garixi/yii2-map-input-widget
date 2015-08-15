@@ -4,9 +4,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 // Register asset bundle
-\kolyunya\yii2\assets\MapInputAsset::register($this);
+\garixi\yii2\assets\MapInputAsset::register($this);
 
 // [BEGIN] - Map input widget container
+echo '<input id="addresscompletion" class="form-control input-md" placeholder="Address">';
+
 echo Html::beginTag(
     'div',
     [

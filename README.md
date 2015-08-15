@@ -11,9 +11,15 @@ A simple widget demo is available [here](http://kolyunya.github.io/yii2-map-inpu
 ##Usage examples
 
 ###Minimal example
-All widget parameters are optional, have some sensible default values and may not be configured.
+To reproduce the following minimal example you will need to acquire a Google maps browser key as described in [Google maps developer's guide](https://developers.google.com/maps/documentation/javascript/tutorial#api_key). The key may be stored as an application parameter for easy referencing or anywhere you like. All other widget parameters have some sensible default values and may not be configured.
 ~~~php
-echo $form->field($model, 'coordinates')->widget('kolyunya\yii2\widgets\MapInputWidget');
+echo $form->field($model, 'coordinates')->widget(
+    'kolyunya\yii2\widgets\MapInputWidget',
+    [
+        // Google maps browser key.
+        'key' => $key,
+    ]
+);
 ~~~
 
 ###Extended example

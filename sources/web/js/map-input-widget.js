@@ -31,6 +31,7 @@ function MapInputWidgetManager()
             function ( widgetIndex , widgetContainer )
             {
                 var widget = initializeWidget(widgetContainer);
+                currWidget = widget;
                 if ( widget )
                 {
                     addWidget(widget);
@@ -61,7 +62,7 @@ function MapInputWidget ( widget )
 
     var canvas;
 
-    var map;
+    //var map;
 
     var initializeComponents = function()
     {
@@ -71,6 +72,7 @@ function MapInputWidget ( widget )
 
     var initializeMap = function()
     {
+        geocoder = new google.maps.Geocoder();
 
         map = new google.maps.Map
         (
@@ -224,6 +226,7 @@ function MapInputWidget ( widget )
         initializeComponents();
         initializeMap();
         initializeWidget();
+
     };
 
     // Returns widget identifier
@@ -292,6 +295,17 @@ function MapInputWidget ( widget )
         var pointString = makePointString(point);
         $(input).prop('value',pointString);
 
+
+        /*
+        //Aggiorba lat e lon
+        $(".latitude").val(ui.item.latitude);
+        $(".longitude").val(ui.item.longitude);
+
+        */
+        $(".latitude").val(point.G);
+        $(".longitude").val(point.K);
+
+
     };
 
     // Pans the map the the specified point
@@ -313,7 +327,7 @@ function MapInputWidget ( widget )
 // A global instance of map inputs manager.
 // Use it to get references to widget instances.
 var mapInputWidgetManager;
-
+var map;
 $(window).load
 (
     function()
@@ -325,5 +339,49 @@ $(window).load
         // Initialize widgets
         mapInputWidgetManager.initializeWidgets();
 
+        $("#addresscompletion").autocomplete({
+            //This uses the geocoder to fetch the address values
+            source: function(request, response) {
+                geocoder.geocode( {'address': request.term }, function(results, status) {
+                    response($.map(results, function(item) {
+                        return {
+                            label:  item.formatted_address,
+                            value: item.formatted_address,
+                            latitude: item.geometry.location.lat(),
+                            longitude: item.geometry.location.lng(),
+                            components: item.address_components,
+                        }
+                    }));
+                })
+            },
+            //This is executed upon selection of an address
+            select: function(event, ui) {
+                $(".latitude").val(ui.item.latitude);
+                $(".longitude").val(ui.item.longitude);
+
+                // https://developers.google.com/maps/documentation/geocoding/?hl=fr#Types
+                var components = ui.item.components;
+                for (var i = 0, component; component = components[i]; i++) {
+                    console.log(component);
+                    if (component.types[0] == 'locality') {
+                        $('.city').val(component['long_name']);
+                    }
+                }
+
+                var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+                //map.marker.setPosition(location);
+                currWidget.setPosition(location);
+                map.setCenter(location);
+                map.setZoom(16);
+            }
+        });
+        //console.log("Aggiunto autocompletion");
+
+        $(window).resize(function() {
+            setTimeout(function() {
+                google.maps.event.trigger(map, 'resize');
+            }, 300)
+
+        });
     }
 );
