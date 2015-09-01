@@ -7,7 +7,7 @@ use yii\helpers\Url;
 \garixi\yii2\assets\MapInputAsset::register($this);
 
 // [BEGIN] - Map input widget container
-echo '<input id="addresscompletion" class="form-control input-md" placeholder="Address">';
+echo '<input id="addresscompletion" class="form-control input-md" placeholder="'.Yii::t('app',"Type an address").'">';
 
 echo Html::beginTag(
     'div',
