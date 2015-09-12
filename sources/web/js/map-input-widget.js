@@ -366,6 +366,12 @@ $(window).load
                     if (component.types[0] == 'locality') {
                         $('.city').val(component['long_name']);
                     }
+                    if (component.types[0] == 'route') {
+                        $('.address').val(component['short_name']);
+                    }
+                    if (component.types[0] == 'country') {
+                        $('.country').val(component['long_name']);
+                    }
                 }
 
                 var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);

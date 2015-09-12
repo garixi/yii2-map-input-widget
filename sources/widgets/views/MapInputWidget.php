@@ -7,7 +7,11 @@ use yii\helpers\Url;
 \garixi\yii2\assets\MapInputAsset::register($this);
 
 // [BEGIN] - Map input widget container
-echo '<input id="addresscompletion" class="form-control input-md" placeholder="'.Yii::t('app',"Type an address").'">';
+echo
+    '<div class="input-group">
+        <span class="input-group-addon" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+        <input id="addresscompletion" class="form-control input-md" placeholder="'.Yii::t('app',"Type an address").'">
+    </div>';
 
 echo Html::beginTag(
     'div',
