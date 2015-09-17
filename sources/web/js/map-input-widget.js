@@ -302,8 +302,8 @@ function MapInputWidget ( widget )
         $(".longitude").val(ui.item.longitude);
 
         */
-        $(".latitude").val(point.G);
-        $(".longitude").val(point.K);
+        $(".latitude").val(point.H);
+        $(".longitude").val(point.L);
 
 
     };
