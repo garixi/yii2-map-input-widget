@@ -82,22 +82,22 @@ function MapInputWidget ( widget )
                 center: getInitialMapCenter(),
                 zoom: $(widget).data('zoom'),
                 styles:
-                [
-                    {
-                        featureType: "poi",
-                        stylers:
-                        [
-                            {
-                                visibility: "off",
-                            },
-                        ],
-                    },
-                ],
+                    [
+                        {
+                            featureType: "poi",
+                            stylers:
+                                [
+                                    {
+                                        visibility: "off",
+                                    },
+                                ],
+                        },
+                    ],
                 mapTypeControlOptions :
                 {
                     mapTypeIds:
-                    [
-                    ],
+                        [
+                        ],
                 },
             }
         );
@@ -203,11 +203,11 @@ function MapInputWidget ( widget )
     {
         var point;
         if
-        (
+            (
             pointData.latitude !== undefined
                 &&
-            pointData.longitude !== undefined
-        )
+                pointData.longitude !== undefined
+            )
         {
             var latitude = pointData.latitude;
             var longitude = pointData.longitude;
@@ -297,13 +297,15 @@ function MapInputWidget ( widget )
 
 
         /*
-        //Aggiorba lat e lon
-        $(".latitude").val(ui.item.latitude);
-        $(".longitude").val(ui.item.longitude);
+         //Aggiorba lat e lon
+         $(".latitude").val(ui.item.latitude);
+         $(".longitude").val(ui.item.longitude);
 
-        */
+         */
         $(".latitude").val(point.H);
         $(".longitude").val(point.L);
+
+        console.log('spostato a ' + point.H + ' e '+ point.L);
 
 
     };
@@ -341,6 +343,13 @@ $(window).load
 
         $("#addresscompletion").autocomplete({
             //This uses the geocoder to fetch the address values
+            messages: {
+                noResults: 'Nessun indirizzo trovato',
+                results: function() {
+                    //return 'Trovati dei risultati usa le freccie per scegliere';
+                    return '';
+                }
+            },
             source: function(request, response) {
                 geocoder.geocode( {'address': request.term }, function(results, status) {
                     response($.map(results, function(item) {
@@ -356,23 +365,34 @@ $(window).load
             },
             //This is executed upon selection of an address
             select: function(event, ui) {
-                $(".latitude").val(ui.item.latitude);
-                $(".longitude").val(ui.item.longitude);
+                $("input.latitude").val(ui.item.latitude);
+                $("input.longitude").val(ui.item.longitude);
 
                 // https://developers.google.com/maps/documentation/geocoding/?hl=fr#Types
                 var components = ui.item.components;
+                var street_number = '';
+                var street_name = '';
                 for (var i = 0, component; component = components[i]; i++) {
                     console.log(component);
                     if (component.types[0] == 'locality') {
                         $('.city').val(component['long_name']);
                     }
                     if (component.types[0] == 'route') {
-                        $('.address').val(component['short_name']);
+                        //$('.address').val(component['short_name']);
+                        street_name = component['short_name'];
+
+                    }
+
+                    if (component.types[0] == 'street_number') {
+                        //$('.address').val(component['short_name']);
+                        street_number = component['short_name'];
+
                     }
                     if (component.types[0] == 'country') {
                         $('.country').val(component['long_name']);
                     }
                 }
+                $('.address').val(street_name + ' ' +street_number);
 
                 var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
                 //map.marker.setPosition(location);
