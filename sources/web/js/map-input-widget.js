@@ -302,8 +302,8 @@ function MapInputWidget ( widget )
          $(".longitude").val(ui.item.longitude);
 
          */
-        $(".latitude").val(point.H);
-        $(".longitude").val(point.L);
+        $(".latitude").val(point.lat());
+        $(".longitude").val(point.lng());
 
         console.log('spostato a ' + point.H + ' e '+ point.L);
 
@@ -365,6 +365,8 @@ $(window).load
             },
             //This is executed upon selection of an address
             select: function(event, ui) {
+                var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+
                 $("input.latitude").val(ui.item.latitude);
                 $("input.longitude").val(ui.item.longitude);
 
@@ -394,7 +396,7 @@ $(window).load
                 }
                 $('.address').val(street_name + ' ' +street_number);
 
-                var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
+
                 //map.marker.setPosition(location);
                 currWidget.setPosition(location);
                 map.setCenter(location);
